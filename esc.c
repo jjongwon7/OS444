@@ -173,7 +173,7 @@ void ESC(int refStr[], char refStrRW[], int pageFrameNum) {
             // frame에 빈 공간이 없는 경우
             else
             {
-                replacementESC(&circularQueue, refStr[i], refStrRW, i); // 현재 포인터로부터 탐색하며 R bit가 0인 노드를 찾아 교체
+                replacementESC(&circularQueue, refStr[i], refStrRW, i); // 현재 포인터로부터 탐색하며 등급이 낮은 노드부터 교체
                 printESC(&circularQueue, pageFrameNum, refStr[i], isPageFault, refStrRW, i);
             }
             isPageFault = 0;

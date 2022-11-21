@@ -4,6 +4,7 @@ FILE * res; // 결과를 저장할 파일 포인터
 
 int* createPage() // 랜덤하게 참조 페이지 번호 생성
 {
+    srand((unsigned int)time(NULL)); // seed값으로 현재시간 부여
     static int num[STRING_SIZE] = {0};
     for(int i=0; i<STRING_SIZE; i++)
         num[i] = (rand()%PAGE_NUMBER)+1; // 1-30 사이의 난수 생성
@@ -12,6 +13,7 @@ int* createPage() // 랜덤하게 참조 페이지 번호 생성
 
 char* createRW() // 랜덤하게 R / W 비트 생성
 {
+    srand((unsigned int)time(NULL)); // seed값으로 현재시간 부여
     static char rw[STRING_SIZE] = {0};
     for(int i=0; i<STRING_SIZE; i++)
     {
@@ -50,7 +52,7 @@ char* createPageStr() // 랜덤하게 참조 페이지 스트링 생성
 }
 
 void createPageStrFile() { // 랜덤하게 참조 페이지 스트링을 생성하여 파일에 저장
-    FILE * fp = fopen("pagestring.txt","w");
+    FILE * fp = fopen("pagestring.txt","w+");
     if(fp == NULL) // fopen 에러 처리
     {
         fprintf(stderr, "fopen error\n");
@@ -80,7 +82,7 @@ int main(int argc, const char * argv[]) {
     // UI
     while(1) // UI 메뉴 A 문항
     {
-        printf("A. Page Replacement 알고리즘 시뮬레이터를 선택하시오 (최대 3개)\n");
+        printf("A. Page Replacement 알고리즘 시뮬레이터를 선택하시오 (최대 3개, 각 번호마다 공백을 두어 입력)\n");
         printf("(1)Optimal (2)FIFO (3)LIFO (4)LRU (5)LFU (6)SC (7)ESC (8)All\n");
         printf("알고리즘 시뮬레이터 선택: ");
         scanf("%[^\n]s", num);
@@ -95,13 +97,13 @@ int main(int argc, const char * argv[]) {
                 else if(algorithmNum[cnt-1] < 1 || algorithmNum[cnt-1] > 8) // 사용자가 1~8 범위 밖의 값을 입력한 경우 처리
                 {
                     isWrong = 1;
-                    printf("잘못된 값입니다. 1-8 이내의 정수만 입력하세요.\n\n");
+                    printf("잘못된 값입니다. 1-8 이내의 정수만 입력하세요. (ex. 1 2 4)\n\n");
                     break;
                 }
             }
             else // 입력한 개수가 3을 초과한 경우 처리
             {
-                printf("알고리즘은 최소 1개 ~ 최대 3개까지만 입력 가능합니다.\n\n");
+                printf("알고리즘은 최소 1개 ~ 최대 3개까지만 입력 가능합니다. (ex. 1 2 4)\n\n");
                 isWrong = 1;
                 break;
             }
@@ -130,7 +132,7 @@ int main(int argc, const char * argv[]) {
     }
     while(1) // UI 메뉴 C 문항
     {
-        printf("C. 데이터 입력 방식을 선택하시오. (1, 2): ");
+        printf("C. 데이터 입력 방식을 선택하시오. (1, 2) (1) 랜덤하게 생성, (2) 사용자 생성 파일 오픈: ");
         scanf("%d", &dataInputType);
         if(dataInputType == 1 || dataInputType == 2) // 올바르게 입력한 경우
         {

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 #define PAGE_NUMBER 30 // 참조 페이지 스트링 범위 (1~30)
 #define STRING_SIZE 500 // 페이지 스트링 개수 500으로 설정
@@ -44,7 +45,7 @@ void FIFO(int refStr[], int pageFrameNum);
 void LIFO(int refStr[], int pageFrameNum);
 
 // === LRU ===
-void updateHitNode(Queue *queue, int order, int pageFrameNum);
+void updateHitNode(Queue *queue, int order);
 void LRU(int refStr[], int pageFrameNum);
 
 // === LFU ===

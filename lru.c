@@ -2,7 +2,7 @@
 #include "hw4.h"
 
 // Hit가 발생했을 때 해당 페이지 프레임 노드를 큐의 맨 뒤로 보내주는 함수
-void updateHitNode(Queue *queue, int order, int pageFrameNum) {
+void updateHitNode(Queue *queue, int order) {
     Node *ptr;
     Node *tmp;
     ptr = queue->front;
@@ -14,7 +14,7 @@ void updateHitNode(Queue *queue, int order, int pageFrameNum) {
         queue->rear->next = ptr; // rear의 next가 ptr을 가리키도록 함
         queue->rear = ptr; // rear를 ptr로 설정
     }
-    else if(order == pageFrameNum) // 맨 뒤에 있는 노드인 경우
+    else if(order == queue->count) // 맨 뒤에 있는 노드인 경우
         return ; // 처리할 필요 x
     else // 사이에 위치한 노드인 경우
     {
@@ -66,7 +66,7 @@ void LRU(int refStr[], int pageFrameNum) {
         else if((order = searchQueue(&queue, refStr[i])) != 0)
         {
             hitNum++;
-            updateHitNode(&queue, order, pageFrameNum);
+            updateHitNode(&queue, order);
             printQueue(&queue, pageFrameNum, refStr[i], isPageFault);
         }
         // miss인 경우

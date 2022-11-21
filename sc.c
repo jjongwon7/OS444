@@ -1,4 +1,4 @@
-// lfu.c
+// sc.c
 #include "hw4.h"
 // CircularQueue 초기화하는 함수
 void initCircularQueue(CircularQueue *circularQueue, int pageFrameNum){
